@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>RebelsAI | Neural Career Path</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;500&display=swap');
+
+        :root {
+            --bg-color: #08080a;
+            --card-border: rgba(255, 255, 255, 0.1);
+            --lvl1-color: #00ff88;
+            --lvl2-color: #cddc39;
+            --lvl3-color: #ff9800;
+            --lvl4-color: #ff0055;
+            --text-main: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 50%, #1a1a2e 0%, #08080a 100%),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 50px 50px, 50px 50px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 100px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 8px;
+            margin: 0;
+            background: linear-gradient(to right, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--lvl4-color);
+            margin-top: 10px;
+        }
+
+        /* De Ladder Container */
+        .ladder {
+            display: flex;
+            flex-direction: column-reverse; /* Junior beneden */
+            align-items: center;
+            position: relative;
+            gap: 40px;
+        }
+
+        /* Kaart Basis */
+        .node {
+            position: relative;
+            width: 280px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: float 6s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .node:hover {
+            transform: scale(1.1) translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 40px var(--glow-color);
+            border-color: var(--glow-color);
+        }
+
+        /* Level Specifieke Glows */
+        .node-l1 { --glow-color: var(--lvl1-color); animation-delay: 0s; }
+        .node-l2 { --glow-color: var(--lvl2-color); animation-delay: 1s; }
+        .node-l3 { --glow-color: var(--lvl3-color); animation-delay: 2s; }
+        .node-l4 { --glow-color: var(--lvl4-color); animation-delay: 3s; width: 240px; }
+
+        .node h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin: 0 0 10px 0;
+            color: var(--glow-color);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .node p {
+            font-size: 0.85rem;
+            margin: 0;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* De Split Layout */
+        .split-branch {
+            display: flex;
+            gap: 60px;
+            position: relative;
+        }
+
+        /* SVG Connectors */
+        .connector-svg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .line {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 2;
+            stroke-dasharray: 10;
+            animation: flow 20s linear infinite;
+        }
+
+        /* Animaties */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes flow {
+            from { stroke-dashoffset: 200; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Decoratieve Elementen */
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--glow-color);
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>REBELSAI</h1>
+        <div class="subtitle">Neural Career Architecture</div>
+    </header>
+
+    <div class="ladder">
+        
+        <div class="node node-l1">
+            <div class="badge">Start</div>
+            <h2>Junior Engineer</h2>
+            <p>Mastering the Core: Learning & Culture</p>
+        </div>
+
+        <div class="node node-l2">
+            <h2>Software Engineer</h2>
+            <p>Driving Value: Autonomy & Ownership</p>
+        </div>
+
+        <div class="node node-l3">
+            <h2>Senior Engineer</h2>
+            <p>Leading Growth: Impact & Mentorship</p>
+        </div>
+
+        <div class="split-branch">
+            <div class="node node-l4">
+                <div class="badge">IC Track</div>
+                <h2>Lead Engineer</h2>
+                <p>Architecting Complexity</p>
+            </div>
+
+            <div class="node node-l4">
+                <div class="badge">Mgt Track</div>
+                <h2>Eng. Manager</h2>
+                <p>Cultivating Excellence</p>
+            </div>
+        </div>
+
+    </div>
+
+    <svg class="connector-svg" preserveAspectRatio="none">
+        <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:var(--lvl4-color);stop-opacity:0.5" />
+                <stop offset="100%" style="stop-color:var(--lvl1-color);stop-opacity:0.5" />
+            </linearGradient>
+        </defs>
+        <line x1="50%" y1="100" x2="50%" y2="90%" class="line" style="stroke: url(#grad); stroke-width: 3;" />
+    </svg>
+
+    <script>
+        // Een klein beetje JS om de connectie-lijnen dynamisch te maken is mogelijk, 
+        // maar voor nu is dit CSS-gestuurde model zeer performant.
+    </script>
+</body>
+</html>
